@@ -3,7 +3,7 @@ import express from "express";
 const app = express();
 
 app.get("/ping", (req, res) => {
-  res.send("pong");
+  res.send("Hello Gerald!");
 });
 
 const PORT = parseInt(process.env.PORT || "8080");
