@@ -1,9 +1,14 @@
-import express from "express";
+import dotenv from "dotenv";
+dotenv.config();
 
+import { addTelemetry } from "./telemetry";
+addTelemetry();
+
+import express from "express";
 const app = express();
 
-app.get("/ping", (req, res) => {
-  res.send("Hello Gerald!");
+app.get("/king", (req, res) => {
+  res.send("kong");
 });
 
 const PORT = parseInt(process.env.PORT || "8080");
