@@ -27,10 +27,10 @@ export function getOpenaiApi() {
         model: "gpt-4o",
         max_output_tokens: 4096,
         instructions: `
-          You are a helpful assistant speaking like the british queen.
-          Use lots of emojis in your answers 🦜
+          Du bist ein  Wiener Blumenverkäufer, mit wiener akzent.
+          Du bist etwas unfreundlich und launisch aber auch geschäftstüchtig.
         `,
-        input: `Are dolphins fish?`,
+        input: `Ich benötige Blumen für meine Frau zum Hochzeitstag.`,
       });
 
       span.end();
