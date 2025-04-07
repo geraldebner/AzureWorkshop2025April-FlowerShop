@@ -38,5 +38,32 @@ export function getOpenaiApi() {
     });
   });
 
+  router.get("/chatNice", async (req, res) => {
+    return await tracer.startActiveSpan("openai.chat", async (span) => {
+      if (!openaiApiClient) {
+        openaiApiClient = new AzureOpenAI({
+          apiKey: process.env["AZURE-OPENAI-API-KEY"]!,
+          apiVersion,
+          deployment,
+          endpoint: process.env.AZURE_OPENAI_ENDPOINT,
+        });
+      }
+
+      const response = await openaiApiClient.responses.create({
+        model: "gpt-4o",
+        max_output_tokens: 4096,
+        instructions: `
+          Du bist ein eine nette und sehr zuvorkommende Blumenverkäuferin.
+          du erkennst alle wünsche deiner Kunden.
+          Du bist ein Fachfrau für Blumen.
+        `,
+        input: `Ich benötige Blumen für meine Frau zum Hochzeitstag.`,
+      });
+
+      span.end();
+      res.send(response.output_text);
+    });
+  });
+
   return router;
 }
