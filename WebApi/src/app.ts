@@ -14,6 +14,9 @@ app.use("/", demoApi);
 import { getOpenaiApi } from "./openAi.js";
 app.use("/", getOpenaiApi());
 
+import {postRabate} from "./rabate.js";
+app.use("/", postRabate());
+
 const PORT = parseInt(process.env.PORT || "8080");
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

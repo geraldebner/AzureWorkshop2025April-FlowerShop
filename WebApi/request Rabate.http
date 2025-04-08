@@ -1,0 +1,7 @@
+
+POST https://webapieb2025.azurewebsites.net/rabate
+Content-Type: application/json
+ 
+{
+    "input": 30
+}

@@ -1,0 +1,7 @@
+
+POST http://localhost:8080/rabate
+Content-Type: application/json
+ 
+{
+    "input": 23
+}

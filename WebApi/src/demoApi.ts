@@ -4,7 +4,7 @@ import express from "express";
 const router = express.Router();
 const tracer = trace.getTracer("demo-api");
 
-router.get("/logging", (req, res) => {
+router.get("/logging  ", (req, res) => {
   tracer.startActiveSpan("logging", (span) => {
     span.addEvent("logging", { message: "Hello World" });
     span.setAttribute("logging.user", "Kaiser Franz");
