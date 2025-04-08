@@ -1,6 +1,7 @@
 import { SpanStatusCode, trace } from "@opentelemetry/api";
 import express from "express";
 import { AzureOpenAI } from "openai";
+import KeyVault from "./keyvault";
 
 const deployment = "gpt-4o";
 const apiVersion = "2025-03-01-preview";
@@ -9,7 +10,7 @@ const tracer = trace.getTracer("openai");
 
 let openaiApiClient: AzureOpenAI | undefined;
 
-export function getOpenaiApi() {
+export function getOpenaiApi(keyVault: KeyVault) {
   const router = express.Router();
 
   router.post("/chat", async (req, res) => {
@@ -17,8 +18,9 @@ export function getOpenaiApi() {
         const { input }: { input: string } = req.body;
  
       if (!openaiApiClient) {
+        const apiKey = await keyVault.getSecret("AZURE-OPENAI-API-KEY");
         openaiApiClient = new AzureOpenAI({
-          apiKey: process.env["AZURE-OPENAI-API-KEY"]!,
+          apiKey,
           apiVersion,
           deployment,
           endpoint: process.env.AZURE_OPENAI_ENDPOINT,
