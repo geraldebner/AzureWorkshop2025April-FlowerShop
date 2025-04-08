@@ -5,3 +5,24 @@ Content-Type: application/json
     "input": "Ich möchte Blumen für eine Beerdingung kaufen."
 }
 
+### follow up
+
+POST http://localhost:8080/chat
+Content-Type: application/json
+ 
+{
+    "input": "Lilien und ähnliches bitte!",
+    "previousId": "resp_67f4f97845608190b9a903b422db5a0a"
+
+}
+
+### chat nice
+
+POST http://localhost:8080/chat
+Content-Type: application/json
+ 
+{
+    "input": "Ich möchte Blumen für eine Beerdingung kaufen."
+}
+
+

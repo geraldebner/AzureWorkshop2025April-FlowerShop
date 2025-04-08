@@ -15,7 +15,7 @@ export function getOpenaiApi(keyVault: KeyVault) {
 
   router.post("/chat", async (req, res) => {
     return await tracer.startActiveSpan("openai.chat", async (span) => {
-        const { input }: { input: string } = req.body;
+      const { input, previousId }: { input: string; previousId?: string } = req.body;
  
       if (!openaiApiClient) {
         const apiKey = await keyVault.getSecret("AZURE-OPENAI-API-KEY");
@@ -35,16 +35,21 @@ export function getOpenaiApi(keyVault: KeyVault) {
           Du bist etwas unfreundlich und launisch aber auch geschäftstüchtig.
         `,
         input,
+        previous_response_id: previousId,
       });
 
       span.end();
-      res.send(response.output_text);
+      res.send({
+        id: response.id,
+        output: response.output_text
+      });
     });
   });
 
   router.post("/chatNice", async (req, res) => {
     return await tracer.startActiveSpan("openai.chat", async (span) => {
-        const { input }: { input: string } = req.body;
+      const { input, previousId }: { input: string; previousId?: string } = req.body;
+ 
       if (!openaiApiClient) {
         openaiApiClient = new AzureOpenAI({
           apiKey: process.env["AZURE-OPENAI-API-KEY"]!,
@@ -63,10 +68,14 @@ export function getOpenaiApi(keyVault: KeyVault) {
           Du bist ein Fachfrau für Blumen.
         `,
         input,
+        previous_response_id: previousId,
       });
 
       span.end();
-      res.send(response.output_text);
+      res.send({
+        id: response.id,
+        output: response.output_text
+      });
     });
   });
 
