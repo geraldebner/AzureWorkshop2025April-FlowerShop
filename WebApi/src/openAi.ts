@@ -12,8 +12,10 @@ let openaiApiClient: AzureOpenAI | undefined;
 export function getOpenaiApi() {
   const router = express.Router();
 
-  router.get("/chat", async (req, res) => {
+  router.post("/chat", async (req, res) => {
     return await tracer.startActiveSpan("openai.chat", async (span) => {
+        const { input }: { input: string } = req.body;
+ 
       if (!openaiApiClient) {
         openaiApiClient = new AzureOpenAI({
           apiKey: process.env["AZURE-OPENAI-API-KEY"]!,
@@ -30,7 +32,7 @@ export function getOpenaiApi() {
           Du bist ein  Wiener Blumenverkäufer, mit wiener akzent.
           Du bist etwas unfreundlich und launisch aber auch geschäftstüchtig.
         `,
-        input: `Ich benötige Blumen für meine Frau zum Hochzeitstag.`,
+        input,
       });
 
       span.end();
@@ -38,8 +40,9 @@ export function getOpenaiApi() {
     });
   });
 
-  router.get("/chatNice", async (req, res) => {
+  router.post("/chatNice", async (req, res) => {
     return await tracer.startActiveSpan("openai.chat", async (span) => {
+        const { input }: { input: string } = req.body;
       if (!openaiApiClient) {
         openaiApiClient = new AzureOpenAI({
           apiKey: process.env["AZURE-OPENAI-API-KEY"]!,
@@ -57,7 +60,7 @@ export function getOpenaiApi() {
           du erkennst alle wünsche deiner Kunden.
           Du bist ein Fachfrau für Blumen.
         `,
-        input: `Ich benötige Blumen für meine Frau zum Hochzeitstag.`,
+        input,
       });
 
       span.end();

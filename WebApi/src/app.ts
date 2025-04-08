@@ -6,6 +6,7 @@ addTelemetry();
 
 import express from "express";
 const app = express();
+app.use(express.json());
 
 import demoApi from "./demoApi.js";
 app.use("/", demoApi);
