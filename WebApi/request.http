@@ -1,28 +1,60 @@
+### simple flower shop request
+POST http://localhost:8080/chat
+Content-Type: application/json
+
+{
+    "cartId": "75912ae1-9106-4f34-acd7-19e694ea8d9d",
+    "input": "I want to buy 2 large bouquets of red roses"
+}
+
+### more complex flower shop request
 POST http://localhost:8080/chat
 Content-Type: application/json
  
 {
-    "input": "Ich möchte Blumen für eine Beerdingung kaufen."
+    "cartId": "75912ae1-9106-4f34-acd7-19e694ea8d9d",
+    "input": "Replace the flowers in all bouquets with Gerbera",
+    "previousId": "resp_67f6402be04c81909ded8bd16ab9f5aa"
 }
 
-### follow up
-
+### clear chart of this user
 POST http://localhost:8080/chat
 Content-Type: application/json
  
 {
-    "input": "Lilien und ähnliches bitte!",
-    "previousId": "resp_67f4f97845608190b9a903b422db5a0a"
-
+    "cartId": "75912ae1-9106-4f34-acd7-19e694ea8d9d",
+    "input": "Clear the my chart and add a small bouquet of tulips"
 }
 
-### chat nice
-
+### clear chart of this user
 POST http://localhost:8080/chat
 Content-Type: application/json
  
 {
-    "input": "Ich möchte Blumen für eine Beerdingung kaufen."
+    "cartId": "75912ae1-9106-4f34-acd7-19e694ea8d9d",
+    "input": "add a bouquet of roses and replace the tulips with  Sunflowers",
+    "previousId": "resp_67f640b9e49c819089c99f4a08084909"
 }
 
 
+### Rebate Endpoint - Local
+POST http://localhost:8080/rebate
+Content-Type: application/json
+
+{
+    "totalPrice": 60
+}
+
+### Rebate Endpoint - Azure
+POST https://web-azureintrolive-rainer.azurewebsites.net/rebate
+Content-Type: application/json
+
+{
+    "totalPrice": 60
+}
+
+### Secret Endpoint - Local
+GET http://localhost:8080/secret
+
+### Secret Endpoint - Azure
+GET https://web-azureintrolive-rainer.azurewebsites.net/secret
